@@ -394,7 +394,7 @@ download_cncli() {
   rm -rf /tmp/cncli-bin && mkdir /tmp/cncli-bin
   pushd /tmp/cncli-bin >/dev/null || err_exit
   cncli_asset_url="$(curl -s https://api.github.com/repos/cardano-community/cncli/releases/latest | jq -r '.assets[].browser_download_url' | grep 'ubuntu22.*.linux-musl.tar.gz')"
-  if curl -sL -f -m ${CURL_TIMEOUT} -o cncli.tar.gz ${cncli_asset_url}; then
+  if curl -sL -f -m 3 -o cncli.tar.gz https://github.com/cardano-community/cncli/releases/download/v6.0.0/cncli-6.0.0-ubuntu22-x86_64-unknown-linux-musl.tar.gz; then
     tar zxf cncli.tar.gz &>/dev/null
     rm -f cncli.tar.gz
     [[ -f cncli ]] || err_exit "CNCLI downloaded but binary (cncli) not found after extracting package!"
